@@ -1,0 +1,18 @@
+INSERT INTO PHONES (QUANTITY, MODEL)
+values (1, 'Samsung Galaxy S9');
+INSERT INTO PHONES (QUANTITY, MODEL)
+values (2, 'Samsung Galaxy S8');
+INSERT INTO PHONES (QUANTITY, MODEL)
+values (1, 'Motorola Nexus 6');
+INSERT INTO PHONES (QUANTITY, MODEL)
+values (1, 'Oneplus 9');
+INSERT INTO PHONES (QUANTITY, MODEL)
+values (1, 'Apple iPhone 13');
+INSERT INTO PHONES (QUANTITY, MODEL)
+values (1, 'Apple iPhone 12');
+INSERT INTO PHONES (QUANTITY, MODEL)
+values (1, 'Apple iPhone 11');
+INSERT INTO PHONES (QUANTITY, MODEL)
+values (1, 'iPhone X');
+INSERT INTO PHONES (QUANTITY, MODEL)
+values (1, 'Nokia 3310');
