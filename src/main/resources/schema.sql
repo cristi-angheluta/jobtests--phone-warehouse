@@ -28,7 +28,7 @@ comment on column BOOKINGS.ID is 'booking-id';
 create index BOOKINGS_pid_return_date_index
     on BOOKINGS (PID, RETURN_DATE);
 
-CREATE VIEW BOOKINGS_NOT_RETURNED (PID, BOOKED)
+CREATE VIEW PHONES_NOT_RETURNED (PID, BOOKED)
 AS
 SELECT b.PID,
        COUNT(*) AS BOOKED
