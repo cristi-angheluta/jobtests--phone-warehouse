@@ -4,13 +4,16 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
+import wh.phones.be.domain.model.PhoneAvailability;
+
+import java.util.List;
 
 @Repository
 class PhoneRepositoryImpl implements PhoneRepository {
     private static final Logger log = LoggerFactory.getLogger(PhoneRepositoryImpl.class);
 
     //language=H2
-    private static final String LIST_AVAILABLE_PHONES = """
+    private static final String LIST_AVAILABILITY = """
             SELECT p.*,
                  IFNULL(booked, 0) as booked,
                  CASE
@@ -21,9 +24,15 @@ class PhoneRepositoryImpl implements PhoneRepository {
                  LEFT OUTER JOIN PHONES_NOT_RETURNED pnr ON p.ID = pnr.PID
             """;
 
-    private final JdbcTemplate ds;
+    private final JdbcTemplate jdbc;
 
-    PhoneRepositoryImpl(JdbcTemplate ds) {
-        this.ds = ds;
+    PhoneRepositoryImpl(JdbcTemplate jdbcTemplate) {
+        this.jdbc = jdbcTemplate;
+    }
+
+    @Override
+    public List<PhoneAvailability> listAvailability() {
+
+        return null;
     }
 }

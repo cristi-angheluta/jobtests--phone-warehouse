@@ -2,18 +2,35 @@ package wh.phones.fe;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-import reactor.core.publisher.Flux;
+import org.springframework.web.bind.annotation.*;
+import wh.phones.be.WarehouseDirectory;
+import wh.phones.be.domain.model.PhoneAvailability;
 
-@RequestMapping("/phones/availability")
+import java.util.List;
+
+@RequestMapping("/phones")
 @RestController
 class PhoneController {
     private static final Logger log = LoggerFactory.getLogger(PhoneController.class);
 
-    @GetMapping(path = {"", "/"})
-    Flux<String> listPhones() {
-        return Flux.just("unu", "doi");
+    private final WarehouseDirectory warehouse;
+
+    PhoneController(WarehouseDirectory warehouse) {
+        this.warehouse = warehouse;
+    }
+
+    @GetMapping(path = "availability")
+    List<PhoneAvailability> listPhones() {
+        return this.warehouse.listPhonesAvailability();
+    }
+
+    @PostMapping(path = "/book/{phoneId}")
+    PhoneAvailability bookPhone(@PathVariable("phoneId") String phoneId) {
+        return null;
+    }
+
+    @PostMapping(path = "/return/{phoneId}")
+    PhoneAvailability returnPhone(@PathVariable("phoneId") String phoneId) {
+        return null;
     }
 }
