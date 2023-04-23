@@ -11,13 +11,13 @@ import org.springframework.context.annotation.Profile;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.test.web.reactive.server.WebTestClient;
 import wh.phones.PhoneWarehouseApp;
+import wh.phones.be.domain.model.PhoneAvailability;
 import wh.phones.config.Constants;
 import wh.phones.config.TestDbConfig;
 
-import java.util.List;
-
 import static java.lang.String.format;
 import static java.time.Duration.ofMinutes;
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.springframework.test.jdbc.JdbcTestUtils.countRowsInTable;
 import static org.springframework.test.jdbc.JdbcTestUtils.deleteFromTables;
@@ -42,7 +42,7 @@ class PhoneControllerIntegrationTest {
         webClient = bindToServer().baseUrl(baseUrl).responseTimeout(ofMinutes(1)).build();
         //
         int devicesNo = countRowsInTable(template, Constants.Db.TABLE__PHONES);
-        assertEquals(10, devicesNo, "test-init: Wrong number of devices");
+        assertEquals(5, devicesNo, "test-init: Wrong number of devices");
 
         int bookingsNo = countRowsInTable(template, Constants.Db.TABLE__BOOKINGS);
         assertEquals(0, bookingsNo, "test-init: Wrong number of bookings");
@@ -69,14 +69,8 @@ class PhoneControllerIntegrationTest {
                 .exchange()
                 // then
                 .expectStatus().is2xxSuccessful()
-                .expectBody(List.class).returnResult().getResponseBody();
-        // TODO @cristi uncomment next assertion
-            /*assertThat(body).hasSize(10).allMatch(o -> {
-                if(o instanceof PhoneAvailability pa){
-                    return pa.available();
-                }
-                return false;
-            });*/
+                .expectBodyList(PhoneAvailability.class).returnResult().getResponseBody();
 
+        assertThat(body).hasSize(5).allMatch(PhoneAvailability::isAvailable);
     }
 }

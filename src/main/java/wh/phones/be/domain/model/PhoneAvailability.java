@@ -2,10 +2,48 @@ package wh.phones.be.domain.model;
 
 import java.util.Objects;
 
-public record PhoneAvailability(long id, String model, boolean available) {
+public class PhoneAvailability {
+    private long id;
+    private String model;
+    private boolean available;
+
+    public PhoneAvailability(){}
+
+    public PhoneAvailability(long id, String model, boolean available) {
+        this.id = id;
+        this.model = model;
+        this.available = available;
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public PhoneAvailability setId(long id) {
+        this.id = id;
+        return this;
+    }
+
+    public String getModel() {
+        return model;
+    }
+
+    public PhoneAvailability setModel(String model) {
+        this.model = model;
+        return this;
+    }
+
+    public boolean isAvailable() {
+        return available;
+    }
+
+    public PhoneAvailability setAvailable(boolean available) {
+        this.available = available;
+        return this;
+    }
 
     public String getAvailability() {
-        return available() ? "yes" : "no";
+        return isAvailable() ? "yes" : "no";
     }
 
     @Override
@@ -29,4 +67,5 @@ public record PhoneAvailability(long id, String model, boolean available) {
     public int hashCode() {
         return Objects.hash(id, model);
     }
+
 }

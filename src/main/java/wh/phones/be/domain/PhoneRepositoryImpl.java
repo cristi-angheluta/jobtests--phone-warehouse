@@ -1,14 +1,11 @@
 package wh.phones.be.domain;
 
-import org.apache.commons.lang3.RandomStringUtils;
-import org.apache.commons.lang3.RandomUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 import wh.phones.be.domain.model.PhoneAvailability;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Repository
@@ -33,20 +30,20 @@ class PhoneRepositoryImpl implements PhoneRepository {
         this.jdbc = jdbcTemplate;
     }
 
-    private static List<PhoneAvailability> generateDummies(int counter) {
-        return new ArrayList<>(){{
-            for (int i = 0; i < counter; i++) {
-                add(generateDummy());
-            }
-        }};
-    }
-
-    private static PhoneAvailability generateDummy() {
-        return new PhoneAvailability(RandomUtils.nextLong(),RandomStringUtils.randomAlphanumeric(10, 20), RandomUtils.nextBoolean());
-    }
-
     @Override
     public List<PhoneAvailability> listAvailability() {
-        return generateDummies(RandomUtils.nextInt(2, 10));
+        log.debug("Listing phones availability");
+        var availabilityList = this.jdbc.query(
+                LIST_AVAILABILITY,
+                (rs, rowNum) ->
+                        new PhoneAvailability(
+                                rs.getLong("ID"),
+                                rs.getString("MODEL"),
+                                rs.getBoolean("AVAILABILITY")
+                        )
+        );
+        log.info("List availability: `{}`", availabilityList);
+
+        return availabilityList;
     }
 }
