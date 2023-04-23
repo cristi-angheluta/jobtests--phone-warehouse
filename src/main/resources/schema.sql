@@ -13,25 +13,25 @@ comment on constraint quantity_ge_0 is 'quantity should be equal or greater than
 
 create table BOOKINGS
 (
-    ID           BIGINT auto_increment,
-    PID          BIGINT                              not null,
+    ID           varchar2                            NOT NULL,
+    PHONE_ID     BIGINT                              not null,
     BOOKING_DATE TIMESTAMP default CURRENT_TIMESTAMP not null,
     BOOKED_BY    CHARACTER VARYING                   not null,
     RETURN_DATE  TIMESTAMP,
     constraint BOOKINGS_PK
         primary key (ID),
     constraint BOOKINGS_PHONES_ID_FK
-        foreign key (PID) references PHONES
+        foreign key (PHONE_ID) references PHONES
 );
 comment on column BOOKINGS.ID is 'booking-id';
 
-create index BOOKINGS_pid_return_date_index
-    on BOOKINGS (PID, RETURN_DATE);
+create index BOOKINGS_phone_id_return_date_index
+    on BOOKINGS (PHONE_ID, RETURN_DATE);
 
-CREATE VIEW PHONES_NOT_RETURNED (PID, BOOKED)
+CREATE VIEW PHONES_NOT_RETURNED (PHONE_ID, BOOKED)
 AS
-SELECT b.PID,
+SELECT b.PHONE_ID,
        COUNT(*) AS BOOKED
 FROM BOOKINGS b
 WHERE RETURN_DATE IS NULL
-GROUP BY b.PID;
+GROUP BY b.PHONE_ID;

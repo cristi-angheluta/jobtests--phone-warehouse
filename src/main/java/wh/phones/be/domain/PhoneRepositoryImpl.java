@@ -21,7 +21,7 @@ class PhoneRepositoryImpl implements PhoneRepository {
                      ELSE false
                  END as AVAILABILITY
             FROM PHONES p 
-                 LEFT OUTER JOIN PHONES_NOT_RETURNED pnr ON p.ID = pnr.PID
+                 LEFT OUTER JOIN PHONES_NOT_RETURNED pnr ON p.ID = pnr.PHONE_ID
             """;
 
     private final JdbcTemplate jdbc;
