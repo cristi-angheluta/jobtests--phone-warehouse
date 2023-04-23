@@ -2,27 +2,10 @@ package wh.phones.be.domain.model;
 
 import java.util.Objects;
 
-public class PhoneAvailability {
-    private final String id;
-    private final String model;
-    private final boolean availability;
+public record PhoneAvailability(long id, String model, boolean available) {
 
-    public PhoneAvailability(String id, String model, boolean availability) {
-        this.id = id;
-        this.model = model;
-        this.availability = availability;
-    }
-
-    public String getId() {
-        return id;
-    }
-
-    public String getModel() {
-        return model;
-    }
-
-    public boolean isAvailability() {
-        return availability;
+    public String getAvailability() {
+        return available() ? "yes" : "no";
     }
 
     @Override
@@ -30,7 +13,7 @@ public class PhoneAvailability {
         return "PhoneAvailability{" +
                "id='" + id + '\'' +
                ", model='" + model + '\'' +
-               ", availability=" + availability +
+               ", availability=" + getAvailability() +
                '}';
     }
 

@@ -16,13 +16,13 @@ create table BOOKINGS
     ID           BIGINT auto_increment,
     PID          BIGINT                              not null,
     BOOKING_DATE TIMESTAMP default CURRENT_TIMESTAMP not null,
+    BOOKED_BY    CHARACTER VARYING                   not null,
     RETURN_DATE  TIMESTAMP,
-    constraint BOOKINGS_pk
+    constraint BOOKINGS_PK
         primary key (ID),
-    constraint BOOKINGS_PHONES_ID_fk
+    constraint BOOKINGS_PHONES_ID_FK
         foreign key (PID) references PHONES
 );
-
 comment on column BOOKINGS.ID is 'booking-id';
 
 create index BOOKINGS_pid_return_date_index

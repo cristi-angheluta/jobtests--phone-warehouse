@@ -24,4 +24,14 @@ class WarehouseDirectoryImpl implements WarehouseDirectory {
     public List<PhoneAvailability> listPhonesAvailability() {
         return this.phonesRepo.listAvailability();
     }
+
+    @Override
+    public PhoneAvailability bookPhone(String phoneId, String currentUser) {
+        return null;
+    }
+
+    @Override
+    public PhoneAvailability returnPhone(String phoneId) {
+        return null;
+    }
 }

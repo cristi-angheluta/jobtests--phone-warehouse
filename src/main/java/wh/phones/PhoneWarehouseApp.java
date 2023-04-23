@@ -8,5 +8,4 @@ public class PhoneWarehouseApp {
     public static void main(String[] args) {
         SpringApplication.run(PhoneWarehouseApp.class, args);
     }
-
 }
