@@ -1,5 +1,6 @@
 <component name="ProjectRunConfigurationManager">
-  <configuration default="false" name="app :: start" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
+  <configuration default="false" name="app :: start :: dev" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
+    <option name="ACTIVE_PROFILES" value="dev" />
     <option name="FRAME_DEACTIVATION_UPDATE_POLICY" value="UpdateClassesAndResources" />
     <module name="wh-phones" />
     <option name="SPRING_BOOT_MAIN_CLASS" value="wh.phones.PhoneWarehouseApp" />
