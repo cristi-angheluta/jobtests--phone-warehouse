@@ -5,9 +5,13 @@ import jakarta.validation.constraints.NotBlank;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 import wh.phones.be.domain.model.Booking;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.util.Objects;
 import java.util.UUID;
@@ -39,7 +43,24 @@ class BookingRepositoryImpl implements BookingRepository {
 
     @Override
     public Booking findByBookingId(@NotBlank String bookingId) {
-        return jdbc.queryForObject("SELECT * FROM BOOKINGS b WHERE b.ID = ?", Booking.class, bookingId);
+        return jdbc.queryForObject("SELECT b.* FROM BOOKINGS b WHERE b.ID = ?", new RowMapper<Booking>() {
+
+            @Override
+            public Booking mapRow(ResultSet rs, int rowNum) throws SQLException {
+                Booking b = new Booking();
+                b.setId(rs.getString("ID"));
+                b.setPhoneId(rs.getLong("PHONE_ID"));
+                b.setBookingDate(rs.getTimestamp("BOOKING_DATE").toLocalDateTime());
+                b.setUser(rs.getString("BOOKED_BY"));
+
+                Timestamp returnDate = rs.getTimestamp("RETURN_DATE");
+                if (returnDate != null) {
+                    b.setReturnDate(returnDate.toLocalDateTime());
+                }
+
+                return b;
+            }
+        }, bookingId);
     }
 
     @Override

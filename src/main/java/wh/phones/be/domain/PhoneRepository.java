@@ -1,5 +1,6 @@
 package wh.phones.be.domain;
 
+import jakarta.validation.constraints.Min;
 import wh.phones.be.domain.model.PhoneAvailability;
 
 import java.util.List;
@@ -9,4 +10,6 @@ import java.util.List;
  */
 public interface PhoneRepository {
     List<PhoneAvailability> listAvailability();
+
+    PhoneAvailability isAvailable(@Min(1) long phoneId);
 }

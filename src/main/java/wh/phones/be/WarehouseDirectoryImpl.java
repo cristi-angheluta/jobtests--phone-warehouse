@@ -33,10 +33,15 @@ class WarehouseDirectoryImpl implements WarehouseDirectory {
 
     @Override
     public Booking bookPhone(long phoneId, String currentUser) {
-        boolean isAvailable = this.bookingRepo.isDeviceAvailable(phoneId);
-        if (isAvailable) {
-            // book it
-            return this.bookingRepo.bookDevice(phoneId, currentUser);
+        var deviceSummary = this.phonesRepo.isAvailable(phoneId);
+        if (deviceSummary != null && deviceSummary.isAvailable()) {
+            log.info("Found an available deviceSummary: `{}`. Booking it.", deviceSummary);
+            return this.bookingRepo.bookDevice(deviceSummary.getId(), currentUser);
+        }
+        if (deviceSummary == null) {
+            log.warn("No device found for phoneId: `{}`", phoneId);
+        } else {
+            log.warn("No device available found for phoneId: `{}`", phoneId);
         }
         return null;
     }

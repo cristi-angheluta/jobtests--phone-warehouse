@@ -1,0 +1,8 @@
+### List phones availability
+GET http://localhost:8080/phones/availability
+
+### Book a phone (phoneId)
+POST http://localhost:8080/phones/book/2?user=cristi
+
+### Return a phone (bookingId)
+POST http://localhost:8080/phones/return/ab184247-f047-4bf9-9306-22a1c204cbca
